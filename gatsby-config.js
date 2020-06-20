@@ -2,8 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Rhys Oliver`,
     author: {
-      name: `Rhys Oliver`,
-      summary: `a full stack web developer who lives and works in Norfolk, United Kindom.`,
+      name: `Rhys`,
+      summary: `A full stack web developer who lives and works in the UK.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
