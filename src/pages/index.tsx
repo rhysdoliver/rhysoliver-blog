@@ -1,4 +1,3 @@
-// Gatsby supports TypeScript natively!
 import React from "react"
 import { PageProps, Link, graphql } from "gatsby"
 
@@ -13,17 +12,36 @@ type Data = {
       title: string
     }
   }
-  allMarkdownRemark: {
+  posts: {
     edges: {
       node: {
-        excerpt: string
-        frontmatter: {
-          title: string
-          date: string
-          description: string
+        childMarkdownRemark: {
+          excerpt: string
+          frontmatter: {
+            title: string
+            date: string
+            description: string
+          }
+          fields: {
+            slug: string
+          }
         }
-        fields: {
-          slug: string
+      }
+    }[]
+  }
+  projects: {
+    edges: {
+      node: {
+        childMarkdownRemark: {
+          excerpt: string
+          frontmatter: {
+            title: string
+            date: string
+            description: string
+          }
+          fields: {
+            slug: string
+          }
         }
       }
     }[]
@@ -32,38 +50,89 @@ type Data = {
 
 const BlogIndex = ({ data, location }: PageProps<Data>) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
+  const posts = data.posts.edges
+  const projects = data.projects.edges
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
-      {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
-        return (
-          <article key={node.fields.slug}>
-            <header>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-            </header>
-            <section>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </section>
-          </article>
-        )
-      })}
+      <div>
+        <h3>Blog Posts</h3>
+        {posts.map(({ node }) => {
+          const title =
+            node.childMarkdownRemark.frontmatter.title ||
+            node.childMarkdownRemark.fields.slug
+          return (
+            <article key={node.childMarkdownRemark.fields.slug}>
+              <header>
+                <h3
+                  style={{
+                    marginBottom: rhythm(1 / 4),
+                  }}
+                >
+                  <Link
+                    style={{ boxShadow: `none` }}
+                    to={node.childMarkdownRemark.fields.slug}
+                  >
+                    {title}
+                  </Link>
+                </h3>
+                <small>{node.childMarkdownRemark.frontmatter.date}</small>
+              </header>
+              <section>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      node.childMarkdownRemark.frontmatter.description ||
+                      node.childMarkdownRemark.excerpt,
+                  }}
+                />
+              </section>
+            </article>
+          )
+        })}
+        <Link to="/blog">See More</Link>
+      </div>
+      <hr />
+      <div>
+        <h3>Recent Projects</h3>
+        {projects.map(({ node }) => {
+          const title =
+            node.childMarkdownRemark.frontmatter.title ||
+            node.childMarkdownRemark.fields.slug
+          return (
+            <article key={node.childMarkdownRemark.fields.slug}>
+              <header>
+                <h3
+                  style={{
+                    marginBottom: rhythm(1 / 4),
+                  }}
+                >
+                  <Link
+                    style={{ boxShadow: `none` }}
+                    to={node.childMarkdownRemark.fields.slug}
+                  >
+                    {title}
+                  </Link>
+                </h3>
+                <small>{node.childMarkdownRemark.frontmatter.date}</small>
+              </header>
+              <section>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      node.childMarkdownRemark.frontmatter.description ||
+                      node.childMarkdownRemark.excerpt,
+                  }}
+                />
+              </section>
+            </article>
+          )
+        })}
+
+        <Link to="/portfolio">See More</Link>
+      </div>
     </Layout>
   )
 }
@@ -71,23 +140,53 @@ const BlogIndex = ({ data, location }: PageProps<Data>) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
+  query Summary {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    posts: allFile(
+      filter: { sourceInstanceName: { eq: "blog" }, extension: { in: "md" } }
+      sort: { fields: childMarkdownRemark___frontmatter___date, order: DESC }
+      limit: 3
+    ) {
       edges {
         node {
-          excerpt
-          fields {
-            slug
+          childMarkdownRemark {
+            excerpt
+            fields {
+              slug
+            }
+            frontmatter {
+              date(formatString: "dddd Do MMMM YYYY")
+              title
+              description
+            }
           }
-          frontmatter {
-            date(formatString: "dddd Do MMMM YYYY")
-            title
-            description
+        }
+      }
+    }
+    projects: allFile(
+      filter: {
+        sourceInstanceName: { eq: "portfolio" }
+        extension: { in: "md" }
+      }
+      sort: { fields: childMarkdownRemark___frontmatter___date, order: DESC }
+      limit: 2
+    ) {
+      edges {
+        node {
+          childMarkdownRemark {
+            excerpt
+            fields {
+              slug
+            }
+            frontmatter {
+              date(formatString: "dddd Do MMMM YYYY")
+              title
+              description
+            }
           }
         }
       }

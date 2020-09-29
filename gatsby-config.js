@@ -6,9 +6,11 @@ module.exports = {
       summary: `A full stack web developer who lives and works in the UK.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    siteUrl: `https://rhysoliver.dev/`,
     social: {
       twitter: `rhysoliver`,
+      github: `RRhys`,
+      linkedin: "rhys-oliver-bs",
     },
   },
   plugins: [
@@ -17,6 +19,13 @@ module.exports = {
       options: {
         path: `${__dirname}/content/blog`,
         name: `blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/portfolio`,
+        name: `portfolio`,
       },
     },
     {
