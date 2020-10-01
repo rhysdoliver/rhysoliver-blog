@@ -68,6 +68,7 @@ const Layout = ({ location, title, children }) => {
           <nav>
             <NavLink to="/blog">Blog</NavLink>
             <NavLink to="/portfolio">Portfolio</NavLink>
+            <NavLink to="/about">About</NavLink>
           </nav>
         </div>
       </header>
