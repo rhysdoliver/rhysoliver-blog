@@ -12,7 +12,7 @@ With these kinds of projects, there is always a risk of typographical errors whi
 
 ### Targets
 
-Targets are set via the factory control system and that data then needed to be interfaced with each hour, to record the targets and the actual production value. A simple subtraction gives the _Lost Opportunity_ for that hour, which can then be booked against. As one of the factory goals is to maintain stability, over shooting the target shouldn't cancel out the under performance of pervious hours.
+Targets are set via the factory control system and that data then needed to be interfaced with each hour, to record the targets and the actual production value. A simple subtraction gives the _Lost Opportunity_ for that hour, which can then be booked against. As one of the factory goals is to maintain stability, over shooting the target shouldn't cancel out the under performance of previous hours.
 
 The interface to fetch the production data and targets is a simple script that loops each site and loss, and maps the correlating control system code to the correct loss.
 
@@ -24,15 +24,15 @@ The first categorisation that needs to be made is the type of Loss. Process, Eng
 
 To overcome the challenge of data integrity, a data hierarchy was put into place; Area, Location, Item, Issue and cause. One area can have multiple Locations, one location can have multiple items and so on. The operator can then select down into detail what the root cause was for each hour. This can then be reported on to increasing levels of detail.
 
-Admins are able to maintain the lLibrary themseleves to allow changes to be made to bookings and naming.
+Admins are able to maintain the library themselves to allow changes to be made to bookings and naming.
 
 ![Library](./LOP-6.jpg)
 
-### Persistant Bookings
+### Persistent Bookings
 
 Some issues can persist for a number of days, either in factory or within some kind of _Strategy_. One way this is handled is by having a Duplicate button on each record to quickly allow the same complex data point to be booked to the next hour. This was as simple fix that was a big win for end users, as it saved a huge amount of time.
 
-Multiple targets are set for each loss, one for operators and one for the True Potential (Flat out run rate). To save booking the same information every hour, an automatic booking process exists that operates using percentges, rather than absolute values. When the targets are ingested into the system, the persistant bookings are also booked if set by the process manager.
+Multiple targets are set for each loss, one for operators and one for the True Potential (Flat out run rate). To save booking the same information every hour, an automatic booking process exists that operates using percentages, rather than absolute values. When the targets are ingested into the system, the persistent bookings are also booked if set by the process manager.
 
 ### Reviewing
 
@@ -50,7 +50,7 @@ A summary page also exists to provide a Top 5 chart over a time period, along wi
 
 ### Other Applications
 
-This style of reporting can be implemented to many different industries, by tracking different performance measurements and having a different library of bookings to select from. This project has also utilised a different style of booking. The target is set based on the volume dumped, rather than performance against target. This allows bookings to be made against waste, instead of poor peformance.
+This style of reporting can be implemented to many different industries, by tracking different performance measurements and having a different library of bookings to select from. This project has also utilised a different style of booking. The target is set based on the volume dumped, rather than performance against target. This allows bookings to be made against waste, instead of poor performance.
 
 ## Talking Tech
 
@@ -64,7 +64,7 @@ The full end to end solution was implemented by myself, with support from the pr
 
 ### Backend Automation
 
-The Target and persistant booking system is also written in [Node.js](https://nodejs.org), and runs on a windows server using Task Scheduler. It's a very basic approach but it works.
+The Target and persistent booking system is also written in [Node.js](https://nodejs.org), and runs on a windows server using Task Scheduler. It's a very basic approach but it works.
 
 ### Security
 
