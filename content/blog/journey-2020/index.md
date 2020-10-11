@@ -95,4 +95,4 @@ Over the course of this year I completed the following tasks on this project:
 
 At the time of writing, we are a couple weeks away from go-live. We will migrate all users from the current internal system, to our cloud instance and make the Mobile App available. It been an incredibly challenging and rewarding project so far, especially considering the project has been done fully remote during the COVID-19 lockdown in the UK.
 
-If you've made it this far, thank you so much for reading, I hope you enjoyed reading. Please do get in touch if you have any questions.
+If you've made it this far, thank you so much for reading, I hope you enjoyed this post. Please do get in touch if you have any questions.
