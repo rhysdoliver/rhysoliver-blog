@@ -4,7 +4,7 @@ date: "2020-09-29T17:02:00.000Z"
 description: "Logging and monitoring system for performance against production targets"
 ---
 
-The business requirement for this project was to be able to track the reasons why the factory wasn't able to hit its production targets. It records performance at each of the factories, for each product stream. Factories can range from 2 main product streams, up to 5 that need a level of reporting.
+The business requirement for this project was to be able to track the reasons why a factory wasn't able to hit its production targets. It records performance at each of the factories, for each product stream. Factories can range from 2 main product streams, up to 5 that need a level of reporting.
 
 With these kinds of projects, there is always a risk of typographical errors which can present false data when reported on, so that posed a challenge on how to get the right level of detail while maintaining data integrity.
 
@@ -60,7 +60,7 @@ The web application is built in [React.js](https://reactjs.org/), and utilises [
 
 The backend API is written in [Node.js](https://nodejs.org), and is tied to a [SQL Server](https://www.microsoft.com/en-gb/sql-server/sql-server-2019) database using [Sequelize](https://sequelize.org/) for Modelling.
 
-The full end to end solution was implemented by myself, with support from the project team on the library and
+The full end to end solution was implemented by myself, with support from the project team on the contents of the library.
 
 ### Backend Automation
 
