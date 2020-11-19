@@ -1,6 +1,6 @@
 ---
 title: Factory Technical Reporting Mobile App
-date: "2020-10-27T17:17:53.000Z"
+date: "2020-11-19T17:42:00.000Z"
 description: "Factory performance mobile app to provide data and insight securly to users mobile devices"
 ---
 
@@ -16,11 +16,15 @@ The data page was broken down into 3 columns; label, sparkline and data. The spa
 
 Each data tab can be clicked to see more information, and also then shows links to other related information.
 
+![Summary](./summary.png)
+
 ## Live Data
 
 As with the summary pages, live data has a list of different screens for each area of each factory. The key goal was to allow areas to be checked very quickly, this was done with red warnings. Each data point can be set with upper and lower trigger points, when these are breached the row changes to red to highlight an issue.
 
 The data points are organised into cards, and by default only display the last 3 data points (which represents the past 6 hours). A see more button was added to display futher records, to view the past 24 hours performance. Each tab can also be used to display a trend chart, to see how close it may be to a limit.
+
+![Live](./live.png)
 
 ## Notifications
 
@@ -31,6 +35,8 @@ Push notifications can be sent directly to a users device. I had to be careful n
 ## Production Comments
 
 A daily summary is required to be written by area managers each day, and they have always struggled to get the comment in before the morning deadline, as they were usually in the factory resolving issues. The app allows a comment to be written directly from the device, so they don't need to get back to the office to submit their comments for the day. A minor feature, but a great convenience for them.
+
+![Misc](./misc.png)
 
 ## Tech Talk
 
