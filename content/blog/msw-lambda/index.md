@@ -6,10 +6,10 @@ description: "A better way to mock requests and do synthetic testing"
 
 [Mock Service Worker](https://mswjs.io) is a developer tool to mock api requests at the network level, allowing for tests and development to closer reflect the real behaviour of deployed applications. Kent Dodds has a [great guide](https://kentcdodds.com/blog/stop-mocking-fetch) and details on why MSW may be preferrable over mocking fetch when writing tests.
 
-Sometimes in deployed environments such as dev, it may be required to isolate the environment from external influences. This can allow testing of deployed infrastructure and code to test that internally everything is working as expected, when external services are also working. This can be especially important in serverless architecture as there will be differences between local and deployed environements. MSW can be used for local development, so why not a deployed environment too!
+Sometimes in deployed environments such as dev, it may be required to isolate the environment from external influences. This can allow testing of deployed infrastructure and code to test that internally everything is working as expected, when external services are also working. This can be especially important in serverless architecture as there will be differences between local and deployed environments. MSW can be used for local development, so why not a deployed environment too!
 
 
-Using MSW with a Lambda function can appear to be a challenge intially, given the temporary nature of a Lambda and MSW running as a background listener. Thankfully when using MSW with Node, all that is happening under the hood is a hijacking of some core node modules.
+Using MSW with a Lambda function can appear to be a challenge initially, given the temporary nature of a Lambda and MSW running as a background listener. Thankfully when using MSW with Node, all that is happening under the hood is a hijacking of some core node modules.
 
 To get MSW running in a deployed node environment we can loosely follow the MSW Getting started guide for the [node implementation](https://mswjs.io/docs/getting-started/integrate/node). But, instead of integrating with Jest using the setup file, we can create two helper functions to start and stop our MSW instance during our lambda execution. Stopping is really important, as future lambda invocations can reuse previous execution environments. So if msw was enabled, it would continue to mock requests in these future invocations where we may not want to mock anymore.
 
@@ -45,7 +45,7 @@ import { handlers } from '~/mocks/handlers'
 type StartMSW = () => SetupServer | null
 
 export const startMSW: StartMSW = () => {
-    // Don't start unless we explicitly want to
+    // Only start if explicitly enabled
     if (!process.env.MSW_STATUS==='enabled') return null
     const server = setupServer(handlers);
     server.listen()
