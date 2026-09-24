@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content"
+import Layout from "../layouts/Layout.astro"
+import Bio from "../components/Bio.astro"
+import PostList from "../components/PostList.astro"
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+
+const projects = (await getCollection("portfolio"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2)
+---
+
+<Layout title="Home">
+  <Bio />
+  <div>
+    <h3>Blog Posts</h3>
+    <PostList posts={posts} />
+    <a href="/blog">See More</a>
+  </div>
+  <hr />
+  <div>
+    <h3>Recent Projects</h3>
+    <PostList posts={projects} />
+    <a href="/portfolio">See More</a>
+  </div>
+</Layout>

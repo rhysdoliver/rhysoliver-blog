@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets"
+import avatar from "../assets/profile-pic.jpg"
+import { siteConfig } from "../site.config"
+
+const { author, social } = siteConfig
+---
+
+<div style="display: flex; margin-bottom: 2.5rem; align-items: flex-start;">
+  <Image
+    src={avatar}
+    alt={author.name}
+    width={75}
+    height={75}
+    style="margin-right: 0.9rem; margin-bottom: 0; min-width: 75px; border-radius: 100%;"
+  />
+  <p style="margin: 0;">
+    Hi, I'm <strong>{author.name}</strong>. {author.summary}{" "}
+    <a href={`https://twitter.com/${social.twitter}`}>You should follow me on Twitter</a>
+  </p>
+</div>
