@@ -1,6 +1,11 @@
 ---
 import SocialIcon from "../components/SocialIcon.astro"
 import { siteConfig } from "../site.config"
+import "@fontsource/merriweather/400.css"
+import "@fontsource/merriweather/400-italic.css"
+import "@fontsource/merriweather/700.css"
+import "@fontsource/montserrat/400.css"
+import "@fontsource/montserrat/700.css"
 import "../styles/global.css"
 
 interface Props {
@@ -20,12 +25,6 @@ const pageTitle = isHome ? siteConfig.title : `${title} | ${siteConfig.title}`
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="canonical" href={new URL(Astro.url.pathname, siteConfig.siteUrl)} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;700&display=swap"
-    />
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
