@@ -1,0 +1,64 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content"
+import Layout from "../layouts/Layout.astro"
+import Bio from "../components/Bio.astro"
+import { formatDate } from "../utils/formatDate"
+
+// The original Gatsby site created a single flat page per markdown file
+// (blog AND portfolio together, e.g. /journey-2020/, /ftr/), sorted by date
+// for prev/next navigation. We replicate that exact URL shape and ordering here.
+export async function getStaticPaths() {
+  const blog = await getCollection("blog")
+  const portfolio = await getCollection("portfolio")
+  const posts = [...blog, ...portfolio].sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  )
+
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      previous: index === posts.length - 1 ? null : posts[index + 1],
+      next: index === 0 ? null : posts[index - 1],
+    },
+  }))
+}
+
+interface Props {
+  post: CollectionEntry<"blog" | "portfolio">
+  previous: CollectionEntry<"blog" | "portfolio"> | null
+  next: CollectionEntry<"blog" | "portfolio"> | null
+}
+
+const { post, previous, next } = Astro.props
+const { Content } = await render(post)
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <article>
+    <header>
+      <h1 style="margin-bottom: 0;">{post.data.title}</h1>
+      <p style="font-size: 0.85rem; display: block; margin-bottom: 1.75rem;">
+        {formatDate(post.data.date)}
+      </p>
+    </header>
+    <section>
+      <Content />
+    </section>
+    <hr style="margin-bottom: 1.75rem;" />
+    <footer>
+      <Bio />
+    </footer>
+  </article>
+
+  <nav>
+    <ul style="display: flex; flex-wrap: wrap; justify-content: space-between; list-style: none; padding: 0;">
+      <li>
+        {previous && <a href={`/${previous.id}/`} rel="prev">← {previous.data.title}</a>}
+      </li>
+      <li>
+        {next && <a href={`/${next.id}/`} rel="next">{next.data.title} →</a>}
+      </li>
+    </ul>
+  </nav>
+</Layout>

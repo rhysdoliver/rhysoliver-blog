@@ -1,0 +1,86 @@
+---
+import SocialIcon from "../components/SocialIcon.astro"
+import { siteConfig } from "../site.config"
+import "@fontsource/merriweather/400.css"
+import "@fontsource/merriweather/400-italic.css"
+import "@fontsource/merriweather/700.css"
+import "@fontsource/montserrat/400.css"
+import "@fontsource/montserrat/700.css"
+import "../styles/global.css"
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = siteConfig.description } = Astro.props
+const isHome = Astro.url.pathname === "/"
+const pageTitle = isHome ? siteConfig.title : `${title} | ${siteConfig.title}`
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, siteConfig.siteUrl)} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content={siteConfig.social.twitter} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
+  </head>
+  <body>
+    <header
+      style="background: linear-gradient(to right, #24243e, #302b63, #0f0c29); padding-top: 40px; padding-bottom: 30px;"
+    >
+      <div style="max-width: 800px; margin: 0 auto;">
+        {
+          isHome ? (
+            <h1 style="margin: 0 0 0.9rem; font-size: 2.25rem;">
+              <a href="/" style="box-shadow: none; color: #fff;">
+                {siteConfig.title}
+              </a>
+            </h1>
+          ) : (
+            <h3 style="margin: 0 0 0.9rem; font-size: 1.35rem;">
+              <a href="/" style="box-shadow: none; color: #fff;">
+                {siteConfig.title}
+              </a>
+            </h3>
+          )
+        }
+      </div>
+      <div style="max-width: 800px; margin: 0 auto;">
+        <nav>
+          <a href="/blog" style="color: rgba(255,255,255,0.7); margin-left: 20px;">Blog</a>
+          <a href="/portfolio" style="color: rgba(255,255,255,0.7); margin-left: 20px;">Portfolio</a>
+          <a href="/about" style="color: rgba(255,255,255,0.7); margin-left: 20px;">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <div style="margin: 0 auto; max-width: 42rem; padding: 2.5rem 1.3rem;">
+      <main style="min-height: 80vh;">
+        <slot />
+      </main>
+    </div>
+
+    <footer style="background: #353b48; margin-top: 20px; padding-top: 70px; padding-bottom: 70px; color: #fff;">
+      <div style="max-width: 800px; margin: 0 auto; color: #fff;">
+        <SocialIcon platform="twitter" url={`https://twitter.com/${siteConfig.social.twitter}`} />
+        <SocialIcon platform="github" url={`https://github.com/${siteConfig.social.github}`} />
+        <SocialIcon platform="linkedin" url={`https://linkedin.com/in/${siteConfig.social.linkedin}`} />
+      </div>
+    </footer>
+  </body>
+</html>
