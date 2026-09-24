@@ -14,8 +14,48 @@ const { author, social } = siteConfig
     height={75}
     style="margin-right: 0.9rem; margin-bottom: 0; min-width: 75px; border-radius: 100%;"
   />
-  <p style="margin: 0;">
+  <p style="margin: 0;" data-typewriter>
     Hi, I'm <strong>{author.name}</strong>. {author.summary}{" "}
     <a href={`https://twitter.com/${social.twitter}`}>You should follow me on Twitter</a>
   </p>
 </div>
+
+<script>
+  // Replaces the old react-typist dependency with a small vanilla-JS typewriter.
+  // The paragraph already contains its final text, so JS-disabled or
+  // reduced-motion visitors just see the full bio immediately.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLElement>("[data-typewriter]").forEach((el) => {
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+      const textNodes: Text[] = []
+      let node: Node | null
+      while ((node = walker.nextNode())) textNodes.push(node as Text)
+
+      const originalText = textNodes.map((n) => n.data)
+      textNodes.forEach((n) => (n.data = ""))
+
+      const typeSpeedMs = 25
+      let nodeIndex = 0
+      let charIndex = 0
+
+      const typeNextChar = () => {
+        if (nodeIndex >= textNodes.length) return
+
+        const text = originalText[nodeIndex]
+        if (charIndex < text.length) {
+          textNodes[nodeIndex].data += text[charIndex]
+          charIndex++
+        } else {
+          nodeIndex++
+          charIndex = 0
+        }
+
+        setTimeout(typeNextChar, typeSpeedMs)
+      }
+
+      setTimeout(typeNextChar, 600)
+    })
+  }
+</script>
